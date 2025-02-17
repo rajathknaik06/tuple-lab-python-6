@@ -1,0 +1,52 @@
+""" James is managing a list of inventory items in a warehouse. Each item is recorded as a tuple, where the first element is the item ID and the second element is a list of quantities available for that item. James needs to filter out all quantities that are above a certain threshold to find items that have a stock level above this limit. 
+
+
+
+Help James by writing a program to process these tuples, filter the quantities from all the available items, and display the results.
+
+Input format :
+The first line of input consists of an integer N, representing the number of tuples.
+
+The next N lines each contain a tuple in the format (ID, [quantity1, quantity2, ...]), where ID is an integer and the list contains integers.
+
+The final line consists of an integer threshold, representing the quantity threshold.
+
+Output format :
+The output should be a single line displaying the filtered quantities, space-separated. Each quantity is strictly greater than the given threshold."""
+
+
+# Read number of tuples
+N = int(input())
+
+# Initialize an empty list to collect all values
+values = []
+
+# Read the tuples and extract the values
+for _ in range(N):
+    # Read the input tuple as a string
+    input_str = input().strip()
+    
+    # Remove the surrounding parentheses and split by comma
+    input_str = input_str.strip('()')
+    parts = input_str.split(', [', 1)  # Split on ', [' to separate ID from the list
+    
+    # Extract the list part
+    list_part = parts[1].strip('[]')  # Remove the closing bracket from the list part
+    
+    # Convert the list part into a list of integers
+    if list_part:
+        current_values = [int(x) for x in list_part.split(',')]
+    else:
+        current_values = []
+    
+    # Add these values to the main values list
+    values.extend(current_values)
+
+# Read the threshold value
+threshold = int(input())
+
+# Filter the values based on the threshold (strictly greater than threshold)
+filtered_values = [value for value in values if value > threshold]
+
+# Print the result as space-separated values
+print(*filtered_values)
